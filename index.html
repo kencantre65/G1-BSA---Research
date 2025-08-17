@@ -6,75 +6,89 @@
   <title>Non-VAT MSEs Tax Classification</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      max-width: 100%;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #800000, #b22222); /* maroon shades */
       margin: 0;
       padding: 0;
-      background-color: #f3f6fb;
+      color: #333;
     }
     .container {
       width: 95%;
       max-width: 500px;
       margin: 40px auto;
       padding: 20px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background: #fff8f0; /* light background for readability */
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease;
     }
     h2 {
       text-align: center;
-      color: #222;
-      font-size: 1.4rem;
+      color: #800000; /* maroon */
+      font-size: 1.5rem;
       margin-bottom: 20px;
     }
     label {
       font-weight: bold;
       margin-top: 15px;
       display: block;
-      font-size: 0.95rem;
-      color: #333;
+      font-size: 1rem;
+      color: #4d0000; /* dark maroon */
     }
     select, button {
       width: 100%;
       padding: 14px;
       margin-top: 8px;
       font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      border-radius: 12px;
+      border: 1px solid #b8860b; /* gold border */
       box-sizing: border-box;
+      transition: 0.3s;
+      background: #fffdf7;
+    }
+    select:focus, button:active {
+      outline: none;
+      transform: scale(1.02);
     }
     button {
-      background-color: #007bff;
-      color: white;
+      background: linear-gradient(135deg, #b8860b, #ffd700); /* gold tones */
+      color: #4d0000; /* maroon text for contrast */
       border: none;
       cursor: pointer;
       margin-top: 20px;
-      transition: background-color 0.3s ease;
+      font-weight: bold;
     }
     button:hover {
-      background-color: #0056b3;
+      background: linear-gradient(135deg, #daa520, #ffd700);
     }
     .info {
       margin-top: 20px;
-      background: #e9f5ff;
+      background: #fff3cd;
       padding: 15px;
-      border-left: 5px solid #007bff;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      color: #004085;
+      border-left: 6px solid #b8860b;
+      border-radius: 12px;
+      font-size: 1rem;
+      color: #4d2c00;
       display: none;
       word-wrap: break-word;
+      animation: fadeIn 0.5s ease;
     }
 
-    /* Mobile optimizations */
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Mobile tweaks */
     @media (max-width: 480px) {
       .container {
         margin: 20px auto;
         padding: 15px;
-        border-radius: 10px;
+        border-radius: 14px;
       }
       h2 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
       }
       select, button {
         padding: 12px;
@@ -89,26 +103,26 @@
 <body>
 
   <div class="container">
-    <h2>Non-VAT MSEs Tax Classification</h2>
+    <h2>📊 Non-VAT MSEs Tax Classification</h2>
 
     <form id="taxForm">
-      <label for="taxType">Select the Chosen Tax Option:</label>
+      <label for="taxType">💡 Choose Your Tax Option:</label>
       <select id="taxType" required>
         <option value="">-- Please select --</option>
-        <option value="percentage">Percentage Tax + Graduated Income Tax</option>
-        <option value="eight">8% Flat Rate Income Tax</option>
+        <option value="percentage">📈 Percentage Tax + Graduated Income Tax</option>
+        <option value="eight">💯 8% Flat Rate Income Tax</option>
       </select>
 
       <div id="filingFreqContainer" style="display:none;">
-        <label for="filingFreq">Select Filing Frequency:</label>
+        <label for="filingFreq">📅 Select Filing Frequency:</label>
         <select id="filingFreq" required>
           <option value="">-- Please select --</option>
-          <option value="quarterly">Quarterly</option>
-          <option value="annual">Annual</option>
+          <option value="quarterly">🔁 Quarterly</option>
+          <option value="annual">📆 Annual</option>
         </select>
       </div>
 
-      <button type="submit" style="display:none;" id="submitBtn">Submit</button>
+      <button type="submit" style="display:none;" id="submitBtn">🚀 Submit</button>
 
       <div class="info" id="resultBox"></div>
     </form>
@@ -120,7 +134,7 @@
     const submitBtn = document.getElementById('submitBtn');
     const resultBox = document.getElementById('resultBox');
 
-    // Replace these URLs with your actual redirect URLs
+    // Redirect URLs
     const redirectMap = {
       percentage: {
         quarterly: 'https://www.youtube.com/',
@@ -137,6 +151,7 @@
         filingFreqContainer.style.display = 'block';
         submitBtn.style.display = 'block';
         resultBox.style.display = 'none';
+        filingFreqContainer.style.animation = "fadeIn 0.6s ease";
       } else {
         filingFreqContainer.style.display = 'none';
         submitBtn.style.display = 'none';
@@ -151,34 +166,33 @@
 
       if (!taxType || !filingFreq) {
         resultBox.style.display = 'block';
-        resultBox.style.color = 'red';
-        resultBox.textContent = '❌ Please select both tax classification and filing frequency.';
+        resultBox.style.color = '#800000';
+        resultBox.innerHTML = '❌ Please select both tax classification and filing frequency.';
         return;
       }
 
       const redirectUrl = redirectMap[taxType][filingFreq];
-
       if (!redirectUrl) {
         resultBox.style.display = 'block';
-        resultBox.style.color = 'red';
-        resultBox.textContent = '❌ Redirect URL not defined for this combination.';
+        resultBox.style.color = '#800000';
+        resultBox.innerHTML = '❌ Redirect URL not available for this option.';
         return;
       }
 
-      const taxText = taxType === 'percentage' ? 'Percentage Tax + Graduated Income Tax' : '8% Flat Rate Income Tax';
-      const freqText = filingFreq.charAt(0).toUpperCase() + filingFreq.slice(1);
+      const taxText = taxType === 'percentage' ? '📈 Percentage Tax + Graduated Income Tax' : '💯 8% Flat Rate Income Tax';
+      const freqText = filingFreq === 'quarterly' ? '🔁 Quarterly' : '📆 Annual';
 
       resultBox.style.display = 'block';
-      resultBox.style.color = '#004085';
+      resultBox.style.color = '#4d2c00';
       resultBox.innerHTML = `
         ✅ You selected: <strong>${taxText}</strong><br>
         📅 Filing Frequency: <strong>${freqText}</strong><br>
-        Redirecting you now...
+        ⏳ Redirecting you now...
       `;
 
       setTimeout(() => {
         window.location.href = redirectUrl;
-      }, 3000);
+      }, 2500);
     });
   </script>
 
