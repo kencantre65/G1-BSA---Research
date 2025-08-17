@@ -11,21 +11,24 @@
       margin: 0;
       padding: 0;
       color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Full height */
     }
     .container {
       width: 95%;
       max-width: 500px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #fff8f0; /* light background for readability */
+      padding: 25px;
+      background: #fff8f0; /* light cream for readability */
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
       animation: fadeIn 1s ease;
     }
     h2 {
       text-align: center;
       color: #800000; /* maroon */
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-bottom: 20px;
     }
     label {
@@ -33,7 +36,7 @@
       margin-top: 15px;
       display: block;
       font-size: 1rem;
-      color: #4d0000; /* dark maroon */
+      color: #4d0000;
     }
     select, button {
       width: 100%;
@@ -51,8 +54,8 @@
       transform: scale(1.02);
     }
     button {
-      background: linear-gradient(135deg, #b8860b, #ffd700); /* gold tones */
-      color: #4d0000; /* maroon text for contrast */
+      background: linear-gradient(135deg, #b8860b, #ffd700);
+      color: #4d0000;
       border: none;
       cursor: pointer;
       margin-top: 20px;
@@ -70,11 +73,8 @@
       font-size: 1rem;
       color: #4d2c00;
       display: none;
-      word-wrap: break-word;
       animation: fadeIn 0.5s ease;
     }
-
-    /* Animations */
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(10px);}
       to {opacity: 1; transform: translateY(0);}
@@ -83,12 +83,11 @@
     /* Mobile tweaks */
     @media (max-width: 480px) {
       .container {
-        margin: 20px auto;
-        padding: 15px;
+        padding: 18px;
         border-radius: 14px;
       }
       h2 {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
       }
       select, button {
         padding: 12px;
@@ -130,72 +129,4 @@
 
   <script>
     const taxTypeSelect = document.getElementById('taxType');
-    const filingFreqContainer = document.getElementById('filingFreqContainer');
-    const submitBtn = document.getElementById('submitBtn');
-    const resultBox = document.getElementById('resultBox');
-
-    // Redirect URLs
-    const redirectMap = {
-      percentage: {
-        quarterly: 'https://www.youtube.com/',
-        annual: 'https://dl.dropboxusercontent.com/scl/fi/g7eu4kgfgrxq03jszi8hy/events-22.ics?rlkey=730xn5z2b3qsxkc5hmkr21ao6&st=2ewin8ka'
-      },
-      eight: {
-        quarterly: 'https://drive.google.com/drive/folders/1t0TjwlZTlrU1UysD31hZblHMe7zjmz6k',
-        annual: 'https://yourwebsite.com/8percent-annual'
-      }
-    };
-
-    taxTypeSelect.addEventListener('change', () => {
-      if (taxTypeSelect.value) {
-        filingFreqContainer.style.display = 'block';
-        submitBtn.style.display = 'block';
-        resultBox.style.display = 'none';
-        filingFreqContainer.style.animation = "fadeIn 0.6s ease";
-      } else {
-        filingFreqContainer.style.display = 'none';
-        submitBtn.style.display = 'none';
-        resultBox.style.display = 'none';
-      }
-    });
-
-    document.getElementById('taxForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const taxType = taxTypeSelect.value;
-      const filingFreq = document.getElementById('filingFreq').value;
-
-      if (!taxType || !filingFreq) {
-        resultBox.style.display = 'block';
-        resultBox.style.color = '#800000';
-        resultBox.innerHTML = '❌ Please select both tax classification and filing frequency.';
-        return;
-      }
-
-      const redirectUrl = redirectMap[taxType][filingFreq];
-      if (!redirectUrl) {
-        resultBox.style.display = 'block';
-        resultBox.style.color = '#800000';
-        resultBox.innerHTML = '❌ Redirect URL not available for this option.';
-        return;
-      }
-
-      const taxText = taxType === 'percentage' ? '📈 Percentage Tax + Graduated Income Tax' : '💯 8% Flat Rate Income Tax';
-      const freqText = filingFreq === 'quarterly' ? '🔁 Quarterly' : '📆 Annual';
-
-      resultBox.style.display = 'block';
-      resultBox.style.color = '#4d2c00';
-      resultBox.innerHTML = `
-        ✅ You selected: <strong>${taxText}</strong><br>
-        📅 Filing Frequency: <strong>${freqText}</strong><br>
-        ⏳ Redirecting you now...
-      `;
-
-      setTimeout(() => {
-        window.location.href = redirectUrl;
-      }, 2500);
-    });
-  </script>
-
-</body>
-</html>
-
+    const filingFreqContainer = document.getElementById('filingFreqConta
