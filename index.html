@@ -129,4 +129,69 @@
 
   <script>
     const taxTypeSelect = document.getElementById('taxType');
-    const filingFreqContainer = document.getElementById('filingFreqConta
+    const filingFreqContainer = document.getElementById('filingFreqContainer');
+    const submitBtn = document.getElementById('submitBtn');
+    const resultBox = document.getElementById('resultBox');
+
+    const redirectMap = {
+      percentage: {
+        quarterly: 'https://www.youtube.com/',
+        annual: 'https://dl.dropboxusercontent.com/scl/fi/g7eu4kgfgrxq03jszi8hy/events-22.ics?rlkey=730xn5z2b3qsxkc5hmkr21ao6&st=2ewin8ka'
+      },
+      eight: {
+        quarterly: 'https://drive.google.com/drive/folders/1t0TjwlZTlrU1UysD31hZblHMe7zjmz6k',
+        annual: 'https://yourwebsite.com/8percent-annual'
+      }
+    };
+
+    taxTypeSelect.addEventListener('change', () => {
+      if (taxTypeSelect.value) {
+        filingFreqContainer.style.display = 'block';
+        submitBtn.style.display = 'block';
+        resultBox.style.display = 'none';
+      } else {
+        filingFreqContainer.style.display = 'none';
+        submitBtn.style.display = 'none';
+        resultBox.style.display = 'none';
+      }
+    });
+
+    document.getElementById('taxForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const taxType = taxTypeSelect.value;
+      const filingFreq = document.getElementById('filingFreq').value;
+
+      if (!taxType || !filingFreq) {
+        resultBox.style.display = 'block';
+        resultBox.style.color = '#800000';
+        resultBox.innerHTML = '❌ Please select both tax classification and filing frequency.';
+        return;
+      }
+
+      const redirectUrl = redirectMap[taxType][filingFreq];
+      if (!redirectUrl) {
+        resultBox.style.display = 'block';
+        resultBox.style.color = '#800000';
+        resultBox.innerHTML = '❌ Redirect URL not available for this option.';
+        return;
+      }
+
+      const taxText = taxType === 'percentage' ? '📈 Percentage Tax + Graduated Income Tax' : '💯 8% Flat Rate Income Tax';
+      const freqText = filingFreq === 'quarterly' ? '🔁 Quarterly' : '📆 Annual';
+
+      resultBox.style.display = 'block';
+      resultBox.style.color = '#4d2c00';
+      resultBox.innerHTML = `
+        ✅ You selected: <strong>${taxText}</strong><br>
+        📅 Filing Frequency: <strong>${freqText}</strong><br>
+        ⏳ Redirecting you now...
+      `;
+
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 2500);
+    });
+  </script>
+
+</body>
+</html>
